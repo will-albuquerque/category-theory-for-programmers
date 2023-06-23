@@ -1,3 +1,2 @@
 mod bifunctor;
-
-pub use bifunctor::Bifunctor;
+mod identity;
