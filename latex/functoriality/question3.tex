@@ -1,0 +1,9 @@
+\subsection{Question 3}
+
+We implement the \lstinline{bimap} method for \lstinline{Prelist}:
+
+\begin{lstlisting}
+instance Bifunctor PreList where
+  bimap _ _ Nil = Nil
+  bimap f g (Cons x y) = Cons (f x) (g y)
+\end{lstlisting}
