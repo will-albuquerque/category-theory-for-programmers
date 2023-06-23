@@ -22,7 +22,7 @@ impl<A, B> Bifunctor<A, B> for (A, B) {
 
 #[cfg(test)]
 mod tests {
-    use crate::Bifunctor;
+    use super::*;
 
     #[test]
     fn test_bimap() {
