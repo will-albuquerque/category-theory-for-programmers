@@ -1,16 +1,17 @@
 \documentclass{article}
-\usepackage{listings}
 
-\title{Category Theory for Programmers}
-\author{Will Albuquerque}
-\date{}
+% Code listings
+\usepackage{listings}
+\lstdefinestyle{mystyle}{basicstyle=\ttfamily\lst@ifdisplaystyle\footnotesize\fi}
+\lstset{
+    language=Haskell,
+    frame=leftline,
+    style=mystyle,
+}
 
 \includeonly{functoriality}
 
 \begin{document}
-\lstset{language=Haskell}
-
-\maketitle
 
 \include{functoriality}
 

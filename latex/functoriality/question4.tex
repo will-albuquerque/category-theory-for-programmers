@@ -1,0 +1,22 @@
+\subsection*{Question 4}
+
+For \lstinline{K2}:
+
+\begin{lstlisting}
+instance Bifunctor (K2 c) where
+  bimap _ _ (K2 v) = K2 v
+\end{lstlisting}
+
+Then for \lstinline{Fst}:
+
+\begin{lstlisting}
+instance Bifunctor Fst where
+  bimap f _ (Fst a) = Fst (f a)
+\end{lstlisting}
+
+Finally for \lstinline{Snd}:
+
+\begin{lstlisting}
+instance Bifunctor Snd where
+  bimap _ g (Snd b) = Snd (g b)
+\end{lstlisting}
