@@ -1,0 +1,49 @@
+\subsection{Question 2}
+We first create a morphism from \lstinline{Maybe} to \lstinline{Maybe'}:
+
+\begin{lstlisting}
+f :: Maybe a -> Maybe' a
+f Nothing = Left (Const ())
+f (Just x) = Right (Identity x)
+\end{lstlisting}
+
+Then we create a morphism from \lstinline{Maybe'} to \lstinline{Maybe}:
+
+\begin{lstlisting}
+f' :: Maybe' a -> Maybe a
+f' (Left _) = Nothing
+f' (Right (Identity x)) = Just x
+\end{lstlisting}
+
+Now we show that \lstinline{f.f' = id}. We start with the \lstinline{Left} case:
+
+\begin{lstlisting}
+(f.f') (Left (Const ())) = f (f' (Left (Const ())))
+                         = f Nothing
+                         = Left (Const ())
+\end{lstlisting}
+
+And now the \lstinline{Right} case:
+
+\begin{lstlisting}
+(f.f') (Right (Identity x)) = f (f' (Right (Identity x)))
+                            = f (Just x)
+                            = Right (Identity x)
+\end{lstlisting}
+
+Finally, we show that \lstinline{f'.f = id}. We start with the
+\lstinline{Nothing} case:
+
+\begin{lstlisting}
+(f'.f) Nothing = f' (f Nothing)
+               = f' (Left (Const ()))
+               = Nothing
+\end{lstlisting}
+
+And now the \lstinline{Just} case:
+
+\begin{lstlisting}
+(f'.f) (Just x) = f' (f (Just x))
+                = f' (Right (Identity x))
+                = Just x
+\end{lstlisting}
