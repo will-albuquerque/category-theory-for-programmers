@@ -5,84 +5,14 @@
 \author{Will Albuquerque}
 \date{}
 
+\includeonly{functoriality}
+
 \begin{document}
 \lstset{language=Haskell}
 
 \maketitle
 
-\section{Functoriality - Challenges}
-
-\subsection{Question 1}
-
-We show that \lstinline{Pair} is isomorphic to another bifunctor,
-\lstinline{(,)}. Firstly, we create a morphism from \lstinline{Pair} to
-\lstinline{(,)}:
-
-\begin{lstlisting}
--- (,) a b = (a, b)
-f :: Pair a b -> (a, b)
-f (Pair x y) = (x, y)
-\end{lstlisting}
-
-Then we create a morphism from \lstinline{(,)} to \lstinline{Pair}:
-
-\begin{lstlisting}
-f' :: (a, b) -> Pair a b
-f' (x, y) = Pair x y
-\end{lstlisting}
-
-Next, we show that \lstinline{(f.f' = id)}:
-
-\begin{lstlisting}
-(f.f') (x, y) = f (f' (x,y))
-              = f (Pair x y)
-              = (x, y)
-\end{lstlisting}
-
-And finally we show that \lstinline{(f'.f = id)}:
-
-\begin{lstlisting}
-(f'.f) (Pair x y) = f' (f (Pair x y))
-                  = f' (x, y)
-                  = Pair x y
-\end{lstlisting}
-
-We then implement the \lstinline{Bifunctor} methods for \lstinline{Pair}:
-
-\begin{lstlisting}
-instance Bifunctor Pair where
-  bimap f g (Pair x y) = Pair (f x) (g y)
-  first f (Pair x y) = Pair (f x) y
-  second f (Pair x y) = Pair x (f y)
-\end{lstlisting}
-
-Firstly, we show that the default implementation for \lstinline{bimap} is
-compatible with \lstinline{first} and \lstinline{second}:
-
-\begin{lstlisting}
-bimap f g (Pair x y) = (first f.second g) (Pair x y)
-                     = first f (second g (Pair x y))
-                     = first f (Pair x (g y))
-                     = Pair (f x) (g y)
-\end{lstlisting}
-
-Secondly, we show that the default implementation for \lstinline{first} is
-compatible with \lstinline{bimap}:
-
-\begin{lstlisting}
-first f (Pair x y) = bimap f id (Pair x y)
-                   = Pair (f x) (id y)
-                   = Pair (f x) y
-\end{lstlisting}
-
-Finally, we show that the default implementation for \lstinline{second} is
-compatible with \lstinline{bimap}:
-
-\begin{lstlisting}
-second f (Pair x y) = bimap id f (Pair x y)
-                    = Pair (id x) (f y)
-                    = Pair x (f y)
-\end{lstlisting}
+\include{functoriality}
 
 \end{document}
 
